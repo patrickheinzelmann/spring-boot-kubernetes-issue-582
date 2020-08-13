@@ -1,0 +1,18 @@
+apiVersion: skaffold/v2alpha1
+kind: Config
+metadata:
+  name: example-distroless
+build:
+  artifacts:
+  - image: anyrepo.azurecr.io/example-distroless
+    jib: {}
+  local: {}
+deploy:
+  kubectl:
+    manifests:
+    - helm/deployment.yaml
+    - helm/configmap.yaml
+    - helm/service.yaml
+    - helm/serviceaccount.yaml
+    - helm/role.yaml
+    - helm/rolebinding.yaml

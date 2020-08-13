@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: example-distroless
+  namespace: default
+data:
+  application.yaml: |-
+    example:
+      value1: 123
+      value2: abc

@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: example-distroless
+    namespace: default
+    labels:
+        app: example-distroless
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            app: example-distroless
+    template:
+        metadata:
+            labels:
+                app: example-distroless
+        spec:
+            containers:
+                -
+                    image: "anyrepo.azurecr.io/example-distroless:latest"
+                    name: example-distroless
+                    ports:
+                        -
+                            containerPort: 8080
+                    livenessProbe:
+                        httpGet:
+                            path: /actuator/health
+                            port: 8080
+                        initialDelaySeconds: 30
+                    readinessProbe:
+                        httpGet:
+                            path: /actuator/health
+                            port: 8080
+                        initialDelaySeconds: 30
+            serviceAccountName: example-distroless

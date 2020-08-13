@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: example-fabric8
+  cloud:
+    kubernetes:
+      reload:
+        enabled: true
+        mode: polling
+        period: 15000
+      config:
+        sources:
+          - name: example-fabric8

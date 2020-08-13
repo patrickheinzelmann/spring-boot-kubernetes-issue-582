@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: example-fabric8
+    namespace: default
+    labels:
+        app: example-fabric8
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            app: example-fabric8
+    template:
+        metadata:
+            labels:
+                app: example-fabric8
+        spec:
+            containers:
+                -
+                    image: "anyrepo.azurecr.io/example-fabric8:latest"
+                    name: example-fabric8
+                    ports:
+                        -
+                            containerPort: 8080
+                    livenessProbe:
+                        httpGet:
+                            path: /actuator/health
+                            port: 8080
+                        initialDelaySeconds: 30
+                    readinessProbe:
+                        httpGet:
+                            path: /actuator/health
+                            port: 8080
+                        initialDelaySeconds: 30
+            serviceAccountName: example-fabric8
